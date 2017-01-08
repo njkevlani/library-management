@@ -1,0 +1,11 @@
+@font-face {
+	font-family: 'AllerRg';
+	src: url('./AllerRg.eot');
+	src: local('AllerRg'), url('./AllerRg.woff') format('woff'), url('./AllerRg.ttf') format('truetype');
+}
+/* use this class to attach this font to any element i.e. <p class="fontsforweb_fontid_1086">Text with this font applied</p> */
+.fontsforweb_fontid_1086 {
+	font-family: 'AllerRg' !important;
+}
+
+/* Font downloaded from FontsForWeb.com */

@@ -1,0 +1,35 @@
+	<div class="container">
+		<div class="row well">
+			<p class="book">MY BOOKS</p>
+			<form method="POST" action="/process2">
+				{{sid}}
+				<button type="submit" style="display:{{outbtnstyle}};">Log out</button>
+			</form>
+			<a href="/login">
+				<button style="display:{{inbtnstyle}};">Log in</button>
+			</a>
+		</div>
+		<div class="row">
+			<table class="table-fill">
+				<thead>
+				<tr>
+					<th>Book id</th>
+					<th>Book Name</th>
+					<th>Issue Date</th>
+					<th>Due Date</th>
+				</tr>
+				</thead>
+				<tbody class="table-hover">
+
+				{{#each books}}
+				<tr>
+					<td>{{bid}}</td>
+					<td>{{bname}}</td>
+					<td>{{issue_date}}</td>
+					<td>{{renewed_date}}</td>
+				</tr>
+				{{/each}}
+				</tbody>
+			</table>
+		</div>
+	</div>

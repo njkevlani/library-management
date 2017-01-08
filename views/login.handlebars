@@ -1,0 +1,21 @@
+	<h1>{{error}}</h1>
+	<form class="loginForm" method="POST" action="/process?form=login">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-offset-3 col-md-6 well">
+					<div class="row">
+						<img src="/image/eschool.jpg" class="avtar">
+					</div>
+					<label><b>ID</b></label>
+					<input type="text" name="id" placeholder="Enter Id" required>
+					<label><b>Password</b></label>
+					<input type="password" name="password" placeholder="Enter password" required>
+					<button type="submit" class="loginbtn">Login</button>
+					<input type="checkbox" checked="yes"> Remember me
+					<div class="row">
+						<span class="forgetpsw"><u><a href="#" class="forgetpsw">forget password?</a></u></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
