@@ -1,0 +1,36 @@
+<a href="/"><button class="btn" style="position:fixed; left:84%; top:12%; color:#3b5998; font-weight:bold;">Main-Page</button></a>
+<div class="container">
+  <div style="margin-top: 17px;" class="row well">
+    <p class="book">Books in Library</p>
+
+    <form  method="POST" action="/" name="search">
+      <input style="width: 30%; align-self: left" type="text" name="search" placeholder="Search">
+      <button style="height: 46px; width: 7%; color: #3b5998;" type="submit">Go</button>
+  </form>
+  </div>
+
+
+  <div class="row">
+    <table class="table-fill">
+
+      <thead>
+      <tr>
+        <th>Book Name</th>
+        <th>Total # of copies</th>
+        <th>Available # of copies</th>
+      </tr>
+      </thead>
+
+      <tbody class="table-hover">
+        {{#each all_books}}
+          <tr>
+            <td>{{bname}}</td>
+            <td>{{total}}</td>
+            <td>{{available}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+
+    </table>
+  </div>
+</div>

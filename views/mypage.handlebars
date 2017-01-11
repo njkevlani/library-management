@@ -1,15 +1,20 @@
 	<div class="container">
 		<div class="row well">
-			<p class="book">MY BOOKS</p>
+			<p class="book">
+				MY BOOKS<br>
+				<a href="/login">
+					<button style="display:{{inbtnstyle}}; font-size:20px; margin-top:5px; background-color:#3b5998; border:0; border-radius:3px; color:white;">Log in</button>
+				</a>
+			</p>
 			<form method="POST" action="/process2">
-				{{sid}}
-				<button type="submit" style="display:{{outbtnstyle}};">Log out</button>
+				<p style="color:#3b5998; font-weight:bold; float:right;">
+					{{sid}}
+					<button type="submit" style="display:{{outbtnstyle}}; background-color:#3b5998; border:0; border-radius:3px; color:white;">Log out</button>
+				</p>
 			</form>
-			<a href="/login">
-				<button style="display:{{inbtnstyle}};">Log in</button>
-			</a>
 		</div>
 		<div class="row">
+			{{#if books}}
 			<table class="table-fill">
 				<thead>
 				<tr>
@@ -31,5 +36,17 @@
 				{{/each}}
 				</tbody>
 			</table>
+			{{/if}}
 		</div>
 	</div>
+
+<div class="container" style="margin-top:14px;">
+	<div class="row well">
+		<p class="book">
+			Books in Library<br>
+			<a href="/allbooks">
+				<button style="font-size:20px; margin-top:5px; background-color:#3b5998; border:0; border-radius:3px; color:white;">Book Collection</button>
+			</a>
+		</p>
+	</div>
+</div>

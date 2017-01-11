@@ -1,0 +1,79 @@
+HTML,BODY,#some{
+	background-color: #3b5998;
+	font-family: AllerRg;
+}
+
+.logo{
+	width: 200px;
+	display: block;
+	margin: auto;
+}
+
+.bvm{
+	font-size: 49px;
+	text-align: center;
+	color: white;
+}
+
+.bvmlib{
+	font-size: 70px;
+	text-align: center;
+	color: white;
+}
+
+.hdr{
+	padding-bottom: 50px;
+}
+
+input[type=text]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.btn1{
+	width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 4px solid #ccc;
+    box-sizing: border-box;
+    background-color: #3b5998;
+}
+
+.btn2{
+	width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+table{
+	border-collapse: separate;
+    border-spacing: 10px;
+    text-align: center;
+}
+
+th {
+  color:#fff;
+  background:#3b5998;
+  border-radius: 2px;
+  margin: 20px;
+  text-align:center;
+  vertical-align:middle;
+  width: 150px;
+}
+
+th.bname{
+	width: 350px;
+}
+
+input.bid{
+	height: 20px;
+}
