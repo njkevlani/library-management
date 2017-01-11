@@ -77,3 +77,6 @@ th.bname{
 input.bid{
 	height: 20px;
 }
+.hidden{
+	display: none;
+}

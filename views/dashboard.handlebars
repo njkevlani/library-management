@@ -26,31 +26,44 @@
 				<tbody>
 				<tr>
 					<td>Card 1</td>
-					<td>1</td>
-					<td>abc</td>
-					<td><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-refresh"></span></button></td>
-					<td><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-arrow-left"></span>6/7/16</button></td>
+					<td id="bid0"></td>
+					<td id="bname0"></td>
+					<td><button type="button" class="btn btn-default btn-sm" id="renew_btn0" onclick="renew(0)"></button></td>
+					<td><button type="button" class="btn btn-default btn-sm" id="return_btn0" onclick="return_book(0)"></button></td>
+
+					<td><input type="text" name="bid" class="bid" placeholder="bid" id="bid_in0" /></td>
+					<td><button type="button" class="btn btn-default btn-sm" id="issue_btn0" onclick="issue(0)"></button></td>
 				</tr>
 				<tr>
 					<td>Card 2</td>
-					<td>2</td>
-					<td>pqr</td>
-					<td><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-refresh"></span></button></td>
-					<td><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-arrow-left"></span>6/7/16</button></td>
+					<td id="bid1"></td>
+					<td id="bname1"></td>
+					<td><button type="button" class="btn btn-default btn-sm" id="renew_btn1" onclick="renew(1)"></button></td>
+					<td><button type="button" class="btn btn-default btn-sm" id="return_btn1" onclick="return_book(1)"></button></td>
+
+					<td><input type="text" name="bid" class="bid" id="bid_in1" placeholder="bid" /></td>
+					<td><button type="button" class="btn btn-default btn-sm" id="issue_btn1" onclick="issue(1)"></button></td>
 				</tr>
 				<tr>
 					<td>Card 3</td>
-					<td>3</td>
-					<td>mno</td>
-					<td><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-refresh"></span></button></td>
-					<td><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-arrow-left"></span>6/7/16</button></td>
+					<td id="bid2"></td>
+					<td id="bname2"></td>
+					<td><button type="button" class="btn btn-default btn-sm" id="renew_btn2" onclick="renew(2)"></button></td>
+					<td><button type="button" class="btn btn-default btn-sm" id="return_btn2" onclick="return_book(2)"></button></td>
+
+					<td><input type="text" name="bid" class="bid" placeholder="bid" id="bid_in2" /></td>
+					<td><button type="button" class="btn btn-default btn-sm" id="issue_btn2" onclick="issue(2)"></button></td>
 				</tr>
 				<tr>
 					<td>Card 4</td>
-					<td><input type="text" name="bid" class="bid" placeholder="bid" /></td>
-					<td><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-import"></span></button></td>
-					<td></td>
-					<td></td>
+					<td id="bid3"></td>
+					<td id="bname3"></td>
+					<td><button type="button" class="btn btn-default btn-sm" id="renew_btn3" onclick="renew(3)"></button></td>
+					<td><button type="button" class="btn btn-default btn-sm" id="return_btn3" onclick="return_book(3)"></button></td>
+
+					<td><input type="text" name="bid" class="bid" placeholder="bid" id="bid_in3" /></td>
+					<td><button type="button" class="btn btn-default btn-sm" id="issue_btn3" onclick="issue(3)"></button></td>
+
 				</tr>
 				</tbody>
 			</table>

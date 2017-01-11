@@ -27,12 +27,6 @@ app.use(session({
     resave: true
 }));
 
-//getting data of all books
-var allBooks;
-mysql.query('SELECT DISTINCT bname, count(bname) as total, sum(available) as available FROM book_main GROUP BY bname', function(err, rows, fields){
-  if(err) throw err;
-  allBooks = rows;
-});
 
 //get requests
 
@@ -62,7 +56,17 @@ app.get('/login',function(req,res){
 
 app.get('/allbooks',function(req,res){
   console.log('GET request recives for /allbooks');
-  res.render('allbooks',{all_books: allBooks});
+
+  //getting data of all books
+  var allBooks;
+  mysql.query('SELECT DISTINCT bname, count(bname) as total, sum(available) as available FROM book_main GROUP BY bname', function(err, rows, fields){
+    if(err) throw err;
+    allBooks = rows;
+    res.render('allbooks',{all_books: allBooks});
+  });
+
+
+
 })
 
 //administrator login remaining
@@ -115,15 +119,60 @@ app.post('/process2',function(req,res){
 //ajax post request
 
 app.post('/process3',function(req,res){
-		console.log('POST request recived from /administrator');
-    mysql.query('SELECT * FROM borrower WHERE id="'+req.body.id+'";',function(err,rows,fields){
+		console.log('POST request /process3 recived from /administrator');
+    mysql.query('SELECT borrower.bid, book_main.bname, borrower.renewed_date FROM borrower INNER JOIN book_main WHERE borrower.id="'+req.body.id+'" AND book_main.bid=borrower.bid',function(err,rows,fields){
       if(err) throw err;
       res.send(rows);
     });
 
 });
 
+//return book
+app.post('/process4',function(req,res){
+		console.log('POST request /process4 recived from /administrator');
+    mysql.query('DELETE FROM borrower WHERE bid="'+req.body.bid+'"',function(err,result){
+      if(err) throw err;
+      mysql.query('UPDATE book_main SET available="1" WHERE bid="'+req.body.bid+'"',function(err,result){
+        if(err) throw err;
+        res.send(true);
+      });
+    });
+});
+
+//issue book
+app.post('/process5',function(req,res){
+		console.log('POST request /process5 recived from /administrator');
+    var today = new Date().toISOString().slice(0, 10);
+    mysql.query('INSERT INTO borrower values ("'+req.body.sid+'","'+req.body.bid+'","'+today+'","'+today+'")', function(err,result){
+      if(err) throw err;
+      mysql.query('UPDATE book_main SET available="0" WHERE bid="'+req.body.bid+'"',function(err,result){
+        if(err) throw err;
+        res.send(true);
+      });
+    });
+
+});
+
+//renew book
+app.post('/process6',function(req,res){
+		console.log('POST request /process6 recived from /administrator');
+    var today = new Date().toISOString().slice(0, 10);
+    mysql.query('UPDATE borrower SET renewed_date="'+today+'" WHERE bid="'+req.body.bid+'"', function(err,result){
+      if(err) throw err;
+      res.send(true);
+    });
+
+});
+
+
+
 
 app.listen(3000,function(){
   console.log('Server started on localhost:3000');
+});
+
+app.use(function(req,res,next){
+
+  res.status(404).render('404',{uel:req.url, layout:'library'});
+  return ;
 });
