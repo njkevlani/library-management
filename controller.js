@@ -59,14 +59,18 @@ app.get('/allbooks',function(req,res){
 
   //getting data of all books
   var allBooks;
-  mysql.query('SELECT DISTINCT bname, count(bname) as total, sum(available) as available FROM book_main GROUP BY bname', function(err, rows, fields){
-    if(err) throw err;
-    allBooks = rows;
-    res.render('allbooks',{all_books: allBooks});
-  });
-
-
-
+  if(!req.query.searched || req.query.searched =="")
+    mysql.query('SELECT DISTINCT bname, count(bname) as total, sum(available) as available FROM book_main GROUP BY bname', function(err, rows, fields){
+      if(err) throw err;
+      allBooks = rows;
+      res.render('allbooks',{all_books: allBooks});
+    });
+  else
+    mysql.query('SELECT DISTINCT bname, count(bname) as total, sum(available) as available FROM book_main WHERE bname like "%'+req.query.searched+'%" GROUP BY bname', function(err, rows, fields){
+      if(err) throw err;
+      allBooks = rows;
+      res.render('allbooks',{all_books: allBooks});
+    });
 })
 
 //administrator login remaining
@@ -116,6 +120,13 @@ app.post('/process2',function(req,res){
 		}
 });
 
+//Search book
+app.post('/process7',function(req,res){
+		console.log('POST request /process7 recived for Searche');
+    res.redirect('/allbooks?searched='+req.body.searched);
+});
+
+
 //ajax post request
 
 app.post('/process3',function(req,res){
@@ -163,9 +174,6 @@ app.post('/process6',function(req,res){
     });
 
 });
-
-
-
 
 app.listen(3000,function(){
   console.log('Server started on localhost:3000');
