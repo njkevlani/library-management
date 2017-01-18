@@ -1,37 +1,52 @@
+$(document).keyup(function(e) {
+     if (e.keyCode == 27) {
+        $('#myModal').modal('toggle');
+    }
+});
+
 dbload = function(){
   var ID = document.getElementById('message').value;
   if(message != ""){
     $.post('/process3',{id:ID},function(rows){
 
-      var i;
-      for(i=0;i<rows.length;i++){
-        document.getElementById("renew_btn"+i).classList.remove("hidden");
-        document.getElementById("bid"+i).classList.remove("hidden");
-        document.getElementById("bname"+i).classList.remove("hidden");
-        document.getElementById("return_btn"+i).classList.remove("hidden");
+      if(!rows)
+        alert("Student not registered");
 
-        document.getElementById("renew_btn"+i).innerHTML = '<span class="glyphicon glyphicon-refresh"></span>';
-        document.getElementById("bid"+i).innerHTML = rows[i].bid;
-        document.getElementById("bname"+i).innerHTML = rows[i].bname;
-        document.getElementById("return_btn"+i).innerHTML = '<span class="glyphicon glyphicon-arrow-left"></span>'+rows[i].renewed_date;
+      else{
+        var i;
+        document.getElementById('modal_title').innerHTML = ID;
+        for(i=0;i<rows.length;i++){
+          document.getElementById("renew_btn"+i).classList.remove("hidden");
+          document.getElementById("bid"+i).classList.remove("hidden");
+          document.getElementById("bname"+i).classList.remove("hidden");
+          document.getElementById("return_btn"+i).classList.remove("hidden");
 
+          document.getElementById("renew_btn"+i).innerHTML = '<span class="glyphicon glyphicon-refresh"></span>';
+          document.getElementById("bid"+i).innerHTML = rows[i].bid;
+          document.getElementById("bname"+i).innerHTML = rows[i].bname;
 
-        document.getElementById("bid_in"+i).classList.add("hidden");
-        document.getElementById("issue_btn"+i).classList.add("hidden");
+          var t = rows[i].renewed_date.split(/[- :]/);
+          var strDate = t[2][0]+t[2][1] + '/' +  t[1] + '/' + t[0];
+          //var strDate = "test";//dt.getDate()+'/'+(dt.getMonth()+1)+'/'+dt.getFullYear();
+          document.getElementById("return_btn"+i).innerHTML = '<span class="glyphicon glyphicon-arrow-left"></span>'+strDate;
+
+          document.getElementById("bid_in"+i).classList.add("hidden");
+          document.getElementById("issue_btn"+i).classList.add("hidden");
+        }
+        for(;i<4;i++){
+          document.getElementById("bid"+i).classList.add("hidden");
+          document.getElementById("bname"+i).classList.add("hidden");
+          document.getElementById("renew_btn"+i).classList.add("hidden");
+          document.getElementById("return_btn"+i).classList.add("hidden");
+
+          document.getElementById("bid_in"+i).classList.remove("hidden");
+          document.getElementById("issue_btn"+i).classList.remove("hidden");
+
+          document.getElementById("issue_btn"+i).innerHTML = '<span class="glyphicon glyphicon-import"></span>';
+        }
+        $('#myModal').modal('show');
+        //console.log(rows[0]);
       }
-      for(;i<4;i++){
-        document.getElementById("bid"+i).classList.add("hidden");
-        document.getElementById("bname"+i).classList.add("hidden");
-        document.getElementById("renew_btn"+i).classList.add("hidden");
-        document.getElementById("return_btn"+i).classList.add("hidden");
-
-        document.getElementById("bid_in"+i).classList.remove("hidden");
-        document.getElementById("issue_btn"+i).classList.remove("hidden");
-
-        document.getElementById("issue_btn"+i).innerHTML = '<span class="glyphicon glyphicon-import"></span>';
-      }
-
-      //console.log(rows[0]);
     });
   }
 }
@@ -53,6 +68,9 @@ function issue(i){
     if(res){
       dbload();
       alert('Operation sucessed');
+    }
+    else{
+      alert('Operation failed');
     }
   })
 }

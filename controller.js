@@ -36,11 +36,11 @@ app.get('/', function(req, res) {
 			console.log('test Session: ' + req.session.sid);
       mysql.query('SELECT borrower.bid, borrower.issue_date, borrower.renewed_date, book_main.bname FROM borrower INNER JOIN book_main WHERE borrower.id="'+req.session.sid+'" AND borrower.bid=book_main.bid', function(err, rows, fields){
         if(err) throw err;
-        res.render('mypage',{sid:req.session.sid, books: rows, inbtnstyle:'none;', outbtnstyle:''});
+        res.render('mypage',{sid:req.session.sid, books: rows, inbtnstyle:'none;', outbtnstyle:'', title:"CP Library"});
       });
 		}
 		else{
-			res.render('mypage',{outbtnstyle:'none;',inbtnstyle:''});
+			res.render('mypage',{outbtnstyle:'none;',inbtnstyle:'', title:"CP Library"});
 		}
 });
 
@@ -50,7 +50,7 @@ app.get('/login',function(req,res){
 		res.redirect('/');
 	}
 	else{
-		res.render('login');
+		res.render('login',{title:"Login"});
 	}
 })
 
@@ -63,20 +63,20 @@ app.get('/allbooks',function(req,res){
     mysql.query('SELECT DISTINCT bname, count(bname) as total, sum(available) as available FROM book_main GROUP BY bname', function(err, rows, fields){
       if(err) throw err;
       allBooks = rows;
-      res.render('allbooks',{all_books: allBooks});
+      res.render('allbooks',{all_books: allBooks, title:"All Books"});
     });
   else
     mysql.query('SELECT DISTINCT bname, count(bname) as total, sum(available) as available FROM book_main WHERE bname like "%'+req.query.searched+'%" GROUP BY bname', function(err, rows, fields){
       if(err) throw err;
       allBooks = rows;
-      res.render('allbooks',{all_books: allBooks});
+      res.render('allbooks',{all_books: allBooks, searched:req.query.searched, title: 'All Books'});
     });
 })
 
 //administrator login remaining
 app.get('/administrator',function(req,res){
   console.log('GET request for /administrator');
-  res.render('dashboard',{layout:'library'});
+  res.render('dashboard',{layout:'library', title:"CP Library"});
 });
 
 //post requests
@@ -102,7 +102,7 @@ app.post('/process',function(req,res){
 						res.redirect('/');
 					}
 					else if(!flag){
-						res.render('login',{error:"Wrong ID-Password",sid:sid,user_error:(!user_flag)});
+						res.render('login',{error:"Wrong ID-Password",sid:sid,user_error:(!user_flag), title:"Login"});
 					}
 		});
 });
@@ -131,11 +131,19 @@ app.post('/process7',function(req,res){
 
 app.post('/process3',function(req,res){
 		console.log('POST request /process3 recived from /administrator');
-    mysql.query('SELECT borrower.bid, book_main.bname, borrower.renewed_date FROM borrower INNER JOIN book_main WHERE borrower.id="'+req.body.id+'" AND book_main.bid=borrower.bid',function(err,rows,fields){
-      if(err) throw err;
-      res.send(rows);
-    });
 
+    //change table
+    mysql.query('SELECT * from student_login WHERE id="'+req.body.id+'"',function(err, row, fields){
+      if(err) throw err;
+      if(row.length == 1){
+        mysql.query('SELECT borrower.bid, book_main.bname, borrower.renewed_date FROM borrower INNER JOIN book_main WHERE borrower.id="'+req.body.id+'" AND book_main.bid=borrower.bid',function(err,rows,fields){
+          if(err) throw err;
+          res.send(rows);
+        });
+      }
+      else
+        res.send(false);
+    });
 });
 
 //return book
@@ -154,12 +162,21 @@ app.post('/process4',function(req,res){
 app.post('/process5',function(req,res){
 		console.log('POST request /process5 recived from /administrator');
     var today = new Date().toISOString().slice(0, 10);
-    mysql.query('INSERT INTO borrower values ("'+req.body.sid+'","'+req.body.bid+'","'+today+'","'+today+'")', function(err,result){
-      if(err) throw err;
-      mysql.query('UPDATE book_main SET available="0" WHERE bid="'+req.body.bid+'"',function(err,result){
-        if(err) throw err;
-        res.send(true);
-      });
+
+    mysql.query('SELECT available from book_main WHERE bid="'+req.body.bid+'"',function(err,rows,fields){
+      if (err) throw err;
+
+      if(!rows[0].available)
+        res.send(false);
+      else{
+        mysql.query('INSERT INTO borrower values ("'+req.body.sid+'","'+req.body.bid+'","'+today+'","'+today+'")', function(err,result){
+          if(err) throw err;
+          mysql.query('UPDATE book_main SET available="0" WHERE bid="'+req.body.bid+'"',function(err,result){
+            if(err) throw err;
+            res.send(true);
+          });
+        });
+      }
     });
 
 });
@@ -181,6 +198,6 @@ app.listen(3000,function(){
 
 app.use(function(req,res,next){
 
-  res.status(404).render('404',{uel:req.url, layout:'library'});
+  res.status(404).render('404',{uel:req.url, layout:'library', title:"Not found"});
   return ;
 });
