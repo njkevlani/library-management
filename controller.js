@@ -184,8 +184,10 @@ app.post('/process5',function(req,res){
 //renew book
 app.post('/process6',function(req,res){
 		console.log('POST request /process6 recived from /administrator');
-    var today = new Date().toISOString().slice(0, 10);
-    mysql.query('UPDATE borrower SET renewed_date="'+today+'" WHERE bid="'+req.body.bid+'"', function(err,result){
+    var today = new Date();
+    today.setDate(today.getDate() + 30);
+    var today_plus_30 = today.toISOString().slice(0, 10);
+    mysql.query('UPDATE borrower SET renewed_date="'+today_plus_30+'" WHERE bid="'+req.body.bid+'"', function(err,result){
       if(err) throw err;
       res.send(true);
     });

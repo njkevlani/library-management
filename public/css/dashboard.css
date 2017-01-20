@@ -59,13 +59,11 @@ table{
     border-spacing: 10px;
     text-align: center;
 }
-
 th {
   color:#fff;
   background:#3b5998;
   border-radius: 2px;
   margin: 20px;
-  text-align:center;
   vertical-align:middle;
   width: 150px;
 }

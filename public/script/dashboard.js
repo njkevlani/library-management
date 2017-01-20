@@ -77,7 +77,7 @@ function issue(i){
 
 
 function renew(i){
-  $.post('/process6',{bid:document.getElementById("bid_in"+i).value},function(res){
+  $.post('/process6',{bid:document.getElementById("bid"+i).innerHTML},function(res){
     if(res){
       dbload();
       alert('Operation sucessed');
