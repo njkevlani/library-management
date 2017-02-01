@@ -1,4 +1,4 @@
-<a href="/"><button class="btn" id="main_page_btn" style="color:#3b5998; font-weight:bold">Main-Page</button></a>
+<a href="/"><button class="btn" id="main_page_btn" style="color:#3b5998; font-weight:bold; position:fixed; left:84%; top:12%">Main-Page</button></a>
 <div class="container">
   <div style="margin-top: 17px;" id="some1" class="row well">
     <p class="book">Books in Library</p>
@@ -10,12 +10,21 @@
   </div>
 
   {{#if searched}}
-    <h3>
-      <span style="font-size:15px;">Search result for:</span> "<b style="color:white;">{{searched}}</b>"
-    </h3>
-      <a href="/allbooks"><button class="btn" style="position:fixed; left:84%; top:22%; color:#3b5998; font-weight:bold;">Clear Search</button></a>
+    <a href="/allbooks"><button class="btn" style="position:fixed; left:84%; top:22%; color:#3b5998; font-weight:bold;">Clear Search</button></a>
+    {{#if all_books}}
+      <h3>
+        <span style="font-size:15px;">Search result for:</span> "<b style="color:white;">{{searched}}</b>"
+      </h3>
+    {{/if}}
+    {{#unless all_books}}
+      <h3>
+        <span style="font-size:15px;">No result for:</span> "<b style="color:white;">{{searched}}</b>"
+      </h3>
+    {{/unless}}
 
   {{/if}}
+
+  {{#if all_books}}
   <div class="row">
     <table class="table-fill">
 
@@ -39,29 +48,32 @@
 
     </table>
   </div>
+  {{/if}}
+
+
 </div>
 
 <script>
-  function fixx(){
+  // function fixx(){
+  //
+  //   //style="position:fixed; left:84%; top:12%; "
+  //   //console.log(window.pageYOffset);
+  //   var len = document.getElementById('libhead').offsetHeight;
+  //   //console.log(len);
+  //   var wid = document.getElementById('libhead').offsetWidth - document.getElementById('some1').offsetWidth;
+  //   wid /= 2;
+  //   wid += document.getElementById('some1').offsetWidth;
+  //   console.log(wid);
+  //
+  //   var btn = document.getElementById('main_page_btn');
+  //   if(len<window.pageYOffset){
+  //     btn.style.position="fixed";
+  //     btn.style.top='50px';
+  //     btn.style.left=wid-20+'px';
+  //   }
+  // }
 
-    //style="position:fixed; left:84%; top:12%; "
-    //console.log(window.pageYOffset);
-    var len = document.getElementById('libhead').offsetHeight;
-    //console.log(len);
-    var wid = document.getElementById('libhead').offsetWidth - document.getElementById('some1').offsetWidth;
-    wid /= 2;
-    wid += document.getElementById('some1').offsetWidth;
-    console.log(wid);
 
-    var btn = document.getElementById('main_page_btn');
-    if(len<window.pageYOffset){
-      btn.style.position="fixed";
-      btn.style.top='50px';
-      btn.style.left=wid-20+'px';
-    }
-  }
-
-
-  window.onscroll=fixx
+  //window.onscroll=fixx
 
 </script>

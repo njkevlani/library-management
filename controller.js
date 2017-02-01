@@ -79,6 +79,13 @@ app.get('/administrator',function(req,res){
   res.render('dashboard',{layout:'library', title:"CP Library"});
 });
 
+app.get('/manageBooks',function(req,res){
+  console.log('GET request for /manageBooks');
+  res.render('BookManage',{layout:'library', title:"CP Library"});
+});
+
+
+
 //post requests
 //login
 app.post('/process',function(req,res){
@@ -191,6 +198,29 @@ app.post('/process6',function(req,res){
       if(err) throw err;
       res.send(true);
     });
+
+});
+
+
+//removing book
+app.post('/process8',function(req,res){
+		console.log('POST request /process8 recived from /manageBooks');
+    console.log(req.body.bname+'\n'+req.body.num);
+    // mysql.query('UPDATE borrower SET renewed_date="'+today_plus_30+'" WHERE bid="'+req.body.bid+'"', function(err,result){
+    //   if(err) throw err;
+    //   res.send(true);
+    // });
+
+});
+
+//remove book
+app.post('/process9',function(req,res){
+		console.log('POST request /process8 recived from /manageBooks');
+    console.log(req.body.bid);
+    // mysql.query('UPDATE borrower SET renewed_date="'+today_plus_30+'" WHERE bid="'+req.body.bid+'"', function(err,result){
+    //   if(err) throw err;
+    //   res.send(true);
+    // });
 
 });
 
