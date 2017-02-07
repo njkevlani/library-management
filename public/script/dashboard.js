@@ -6,7 +6,7 @@ $(document).keyup(function(e) {
 
 dbload = function(){
   var ID = document.getElementById('message').value;
-  if(message != ""){
+  if(message !== ""){
     $.post('/process3',{id:ID},function(rows){
 
       if(!rows)
@@ -49,7 +49,7 @@ dbload = function(){
       }
     });
   }
-}
+};
 //renew     <span class="glyphicon glyphicon-refresh"></span>
 //return    <span class="glyphicon glyphicon-arrow-left"></span>6/7/16
 //issue     <span class="glyphicon glyphicon-import"></span>
@@ -60,19 +60,23 @@ function return_book(i){
         dbload();
         alert('Operation sucessed');
       }
-    })
+    });
 }
 
 function issue(i){
-  $.post('/process5',{bid:document.getElementById("bid_in"+i).value, sid:document.getElementById('message').value},function(res){
-    if(res){
-      dbload();
-      alert('Operation sucessed');
-    }
-    else{
-      alert('Operation failed');
-    }
-  })
+  var bid = document.getElementById("bid_in"+i).value;
+  if(bid!=="")
+    $.post('/process5',{bid:bid, sid:document.getElementById('message').value},function(res){
+      if(res){
+        dbload();
+        alert('Operation sucessed');
+      }
+      else{
+        alert('Operation failed');
+      }
+    });
+  else
+    alert("BID required!");
 }
 
 
@@ -82,5 +86,5 @@ function renew(i){
       dbload();
       alert('Operation sucessed');
     }
-  })
+  });
 }
