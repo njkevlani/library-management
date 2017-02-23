@@ -23,14 +23,15 @@ document.getElementById("AddBookButton").onclick = function(){
   var bname = document.getElementById("bname").value;
   var num = document.getElementById("num").value;
   //working for one book atm.
-  //if(num === "")
+  if(num === ""){
     num = 1;
+  }
   if(bname === "")
     alert("Enter a valid book name!");
   else
     $.post('/process8',{bname:bname, num:num},function(res){
-      if(res){
-        alert("Book sucessfully added");
+      if(res.boolean_value){
+        alert(res.status);
         $('#AddBookModal').modal('hide');
       }
       else{

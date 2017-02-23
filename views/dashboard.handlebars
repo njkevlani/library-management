@@ -14,12 +14,17 @@
 	      </div>
 	      <div class="modal-body">
 	        <table class="table-fill">
+						<col style="width:20%">
+						<col style="width:12%">
+						<col style="width:18%">
+						<col style="width:30%">
+						<col style="width:20%	">
 				<thead>
 				<tr>
 					<th style="text-align:center;">Cards</th>
-					<th style="text-align:center;">Books id</th>
+					<th style="text-align:center;">Book id</th>
 					<th style="text-align:center;" class="bname">Book Name</th>
-					<th style="text-align:center;"><span class="glyphicon glyphicon-refresh"></span>  Renew</th>
+					<th style="text-align:center;"><span class="glyphicon glyphicon-refresh"></span> Renew</th>
 					<th style="text-align:center;"><span class="glyphicon glyphicon-arrow-left"></span>  due date</th>
 				</tr>
 				</thead>
@@ -28,7 +33,8 @@
 					<td>Card 1</td>
 					<td id="bid0"></td>
 					<td id="bname0"></td>
-					<td><button type="button" class="btn btn-default btn-sm" id="renew_btn0" onclick="renew(0)"></button></td>
+					<td><input type="text" class="renew_days" id="renew_days0" placeholder="30" />
+					<button type="button" class="btn btn-default btn-sm" id="renew_btn0" onclick="renew(0)"></button></td>
 					<td><button type="button" class="btn btn-default btn-sm" id="return_btn0" onclick="return_book(0)"></button></td>
 
 					<td><input type="text" name="bid" class="bid" placeholder="bid" id="bid_in0" /></td>
@@ -38,7 +44,8 @@
 					<td>Card 2</td>
 					<td id="bid1"></td>
 					<td id="bname1"></td>
-					<td><button type="button" class="btn btn-default btn-sm" id="renew_btn1" onclick="renew(1)"></button></td>
+					<td><input type="text" class="renew_days" id="renew_days1" placeholder="30" />
+					<button type="button" class="btn btn-default btn-sm" id="renew_btn1" onclick="renew(1)"></button></td>
 					<td><button type="button" class="btn btn-default btn-sm" id="return_btn1" onclick="return_book(1)"></button></td>
 
 					<td><input type="text" name="bid" class="bid" id="bid_in1" placeholder="bid" /></td>
@@ -48,7 +55,8 @@
 					<td>Card 3</td>
 					<td id="bid2"></td>
 					<td id="bname2"></td>
-					<td><button type="button" class="btn btn-default btn-sm" id="renew_btn2" onclick="renew(2)"></button></td>
+					<td><input type="text" class="renew_days" id="renew_days2" placeholder="30" />
+					<button type="button" class="btn btn-default btn-sm" id="renew_btn2" onclick="renew(2)"></button></td>
 					<td><button type="button" class="btn btn-default btn-sm" id="return_btn2" onclick="return_book(2)"></button></td>
 
 					<td><input type="text" name="bid" class="bid" placeholder="bid" id="bid_in2" /></td>
@@ -58,10 +66,11 @@
 					<td>Card 4</td>
 					<td id="bid3"></td>
 					<td id="bname3"></td>
-					<td><button type="button" class="btn btn-default btn-sm" id="renew_btn3" onclick="renew(3)"></button></td>
+					<td><input type="text" class="renew_days" id="renew_days3" placeholder="30" />
+					<button type="button" class="btn btn-default btn-sm" id="renew_btn3" onclick="renew(3)"></button></td>
 					<td><button type="button" class="btn btn-default btn-sm" id="return_btn3" onclick="return_book(3)"></button></td>
 
-					<td><input type="text" name="bid" class="bid" placeholder="bid" id="bid_in3" /></td>
+					<td><input type="text" name="bid" class="bid" placeholder="bid" id="bid_in3"/></td>
 					<td><button type="button" class="btn btn-default btn-sm" id="issue_btn3" onclick="issue(3)"></button></td>
 
 				</tr>

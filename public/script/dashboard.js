@@ -1,6 +1,10 @@
 $(document).keyup(function(e) {
      if (e.keyCode == 27) {
-        $('#myModal').modal('toggle');
+        $('#myModal').modal('hide');
+        //fadeOut(500);
+        //modal('toggle');
+        //window.close();
+        document.getElementById("message").focus();
     }
 });
 
@@ -17,6 +21,7 @@ dbload = function(){
         document.getElementById('modal_title').innerHTML = ID;
         for(i=0;i<rows.length;i++){
           document.getElementById("renew_btn"+i).classList.remove("hidden");
+          document.getElementById("renew_days"+i).classList.remove("hidden");
           document.getElementById("bid"+i).classList.remove("hidden");
           document.getElementById("bname"+i).classList.remove("hidden");
           document.getElementById("return_btn"+i).classList.remove("hidden");
@@ -37,6 +42,7 @@ dbload = function(){
           document.getElementById("bid"+i).classList.add("hidden");
           document.getElementById("bname"+i).classList.add("hidden");
           document.getElementById("renew_btn"+i).classList.add("hidden");
+          document.getElementById("renew_days"+i).classList.add("hidden");
           document.getElementById("return_btn"+i).classList.add("hidden");
 
           document.getElementById("bid_in"+i).classList.remove("hidden");
@@ -58,8 +64,10 @@ function return_book(i){
     $.post('/process4',{bid:document.getElementById("bid"+i).innerHTML},function(res){
       if(res){
         dbload();
-        alert('Operation sucessed');
+        alert('Successfully returned the book');
       }
+      else
+        alert('Failed to return the book');
     });
 }
 
@@ -67,13 +75,9 @@ function issue(i){
   var bid = document.getElementById("bid_in"+i).value;
   if(bid!=="")
     $.post('/process5',{bid:bid, sid:document.getElementById('message').value},function(res){
-      if(res){
+      if(res.boolean_value)
         dbload();
-        alert('Operation sucessed');
-      }
-      else{
-        alert('Operation failed');
-      }
+      alert(res.status);
     });
   else
     alert("BID required!");
@@ -81,10 +85,15 @@ function issue(i){
 
 
 function renew(i){
-  $.post('/process6',{bid:document.getElementById("bid"+i).innerHTML},function(res){
+  renew_days = document.getElementById("renew_days"+i).value;
+  if(renew_days === "")
+    renew_days = 30;
+  $.post('/process6',{bid:document.getElementById("bid"+i).innerHTML,renew_days:renew_days},function(res){
     if(res){
       dbload();
-      alert('Operation sucessed');
+      alert('successfully renewed the book');
     }
+    else
+      alert('Faild to renew the book');
   });
 }

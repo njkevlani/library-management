@@ -1,4 +1,4 @@
-HTML,BODY,#some{
+HTML,BODY, #some{
 	background-color: #3b5998;
 	font-family: AllerRg;
 }
@@ -68,11 +68,15 @@ th {
   width: 150px;
 }
 
-th.bname{
+.bname{
 	width: 350px;
 }
 
-input.bid{
+.bid{
+	height: 20px;
+}
+input.renew_days{
+  width:5em;
 	height: 20px;
 }
 .hidden{
