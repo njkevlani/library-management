@@ -19,7 +19,6 @@
   <button type="button" class="btn btn-info btn-lg" data-target="#RemoveBookModal" data-toggle="modal" id="RemoveBookModalButton">Remove Book</button>
   </div>
 
-
   <div id="AddBookModal" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
 
@@ -30,7 +29,15 @@
 	        <h4 class="modal-title" id="modal_title">Add Book(s)</h4>
 	      </div>
 	      <div class="modal-body">
-	         <input name="bname" id="bname" placeholder="Name of Book"><br>
+	         <!--input name="bname" id="bname" placeholder="Name of Book"-->
+           <select onchange="if(this.value === 'New Book') document.getElementById('bname').disabled = false; else document.getElementById('bname').disabled = true; " id="book_select">
+             <option><b>New Book<b></option>
+             {{#each allBooks}}
+              <option>{{bname}}</option>
+             {{/each}}
+           </select>
+           <br>
+           <input name="bname" id="bname" placeholder="Name of Book"><br>
            <input name="num" id="num" placeholder="Number of book(s)"><br>
            <button name="AddBookButton" class="btn" style="background:#3b5998; color:white; font-weight:bold" id="AddBookButton">Add Book(s)</button>
 	      </div>

@@ -20,24 +20,30 @@ document.getElementById("RemoveBookModalButton").onclick = function(){
 
 //Adding book(s)
 document.getElementById("AddBookButton").onclick = function(){
-  var bname = document.getElementById("bname").value;
+
+  var bname = document.getElementById("bname");
+  if(bname.disabled === true)
+    bname = document. getElementById("book_select").value;
+  else
+    bname = bname.value;
   var num = document.getElementById("num").value;
   //working for one book atm.
   if(num === ""){
     num = 1;
   }
-  if(bname === "")
-    alert("Enter a valid book name!");
-  else
-    $.post('/process8',{bname:bname, num:num},function(res){
-      if(res.boolean_value){
-        alert(res.status);
-        $('#AddBookModal').modal('hide');
-      }
-      else{
-        alert("error while adding Book");
-      }
-    });
+
+    if(bname === "")
+      alert("Enter a valid book name!");
+    else
+      $.post('/process8',{bname:bname, num:num},function(res){
+        if(res.boolean_value){
+          alert(res.status);
+          $('#AddBookModal').modal('hide');
+        }
+        else{
+          alert("error while adding Book");
+        }
+      });
 };
 
 document.getElementById("RemoveBookButton").onclick = function(){
@@ -55,3 +61,13 @@ document.getElementById("RemoveBookButton").onclick = function(){
       }
     });
 };
+
+function val_books(){
+  var book_in = getElementById("bname");
+  if(document.getElementById("book_in").vlaue === "New Book"){
+    book_in.disabled = true;
+  }
+  else{
+    book_in.disabled = false;
+  }
+}

@@ -101,10 +101,14 @@ app.get('/administrator', function(req, res) {
 });
 
 app.get('/manageBooks', function(req, res) {
-    console.log('GET request for /manageBooks');
-    res.render('BookManage', {
-        layout: 'library',
-        title: "CP Library"
+    mysql.query("SELECT DISTINCT bname FROM book_main", function(err, rows, fields) {
+        if (err) throw err;
+        console.log('GET request for /manageBooks');
+        res.render('BookManage', {
+            layout: 'library',
+            title: "CP Library",
+            allBooks: rows
+        });
     });
 });
 
@@ -259,7 +263,10 @@ app.post('/process6', function(req, res) {
 app.post('/process8', function(req, res) {
     console.log('POST request /process8 recived from /manageBooks');
     //console.log(req.body.bname+'\n'+req.body.num);
-    var return_obj = {boolean_value: false, status:""};
+    var return_obj = {
+        boolean_value: false,
+        status: ""
+    };
     var bname = req.body.bname;
     var sql = "INSERT INTO book_main(bname) values" + " ('" + bname + "')";
     for (var i = 1; i < req.body.num; i++)
@@ -270,11 +277,11 @@ app.post('/process8', function(req, res) {
             res.send(return_obj);
             throw err;
             //flag = false;
-        } else{
+        } else {
             return_obj.boolean_value = true;
             return_obj.status = "IDs of inserted books : ";
-            for(var i = result.insertId;i < result.insertId + parseInt(req.body.num);i++)
-                return_obj.status += " "+i;
+            for (var i = result.insertId; i < result.insertId + parseInt(req.body.num); i++)
+                return_obj.status += " " + i;
             res.send(return_obj);
         }
     });
