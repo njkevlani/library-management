@@ -308,6 +308,14 @@ app.post('/process9', function(req, res) {
 
 });
 
+app.get('/developers', function(req, res) {
+    console.log('GET request recived for /developer');
+        res.render('developers', {
+            title: "Developers"
+        });
+});
+
+
 app.listen(3000, function() {
     console.log('Server started on localhost:3000');
 });
